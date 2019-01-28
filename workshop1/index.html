@@ -1,0 +1,33 @@
+<html>
+
+<head>
+<title>Bitcoin</title>
+</head>
+
+<body>
+    <div id="info">
+    <script type="text/javascript">
+        var xmlhttp = new XMLHttpRequest();
+        var url = "https://api.coindesk.com/v1/bpi/currentprice.json";
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4  &&  this.status == 200) {
+                var json = JSON.parse(this.responseText);
+                parseJson(json);
+            }		
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+        function parseJson(json) {
+            var time = "<b>Ultima actualizacion : " + json["time"]["updated"] + "</b>";
+            var usdValue = "$ " + json["bpi"]["USD"]["rate"] + " "+ json["bpi"]["USD"]["description"];
+            var gbpValue = "&pound; " + json["bpi"]["GBP"]["rate"] + " " + json["bpi"]["GBP"]["description"];
+            var euroValue = "&euro; " + json["bpi"]["EUR"]["rate"] + " " + json["bpi"]["EUR"]["description"];
+            document.getElementById("info").innerHTML = time + 
+            "<br /><br />" + usdValue + 
+            "<br />" + gbpValue + 
+            "<br />" + euroValue;
+        }
+    </script>
+</body>
+
+</html>
